@@ -8,25 +8,20 @@ const openai = new OpenAI({
 
 const handler = async (event) => {
   try {
-    const response = "none"
-    if (event.body.mode == "1"){
-        const completion =await openai.completions.create({
+    
+      const completion =await openai.completions.create({
           model:"text-davinci-002",
-          prompt:event.body.userPrompt,
-          max_tokens:event.body.max_tokens
+          prompt:event.body,
+          max_tokens:700,
         })        
 
-        response = completion.choices[0].text
+    response = completion.choices[0].text
 
-    }else{
-
-    }
     
     return {
       statusCode: 200,
       body: JSON.stringify({ 
-        message: response,
-        response:event.body     
+        message: response,   
        }),
     }
   } catch (error) {
