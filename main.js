@@ -88,7 +88,7 @@ async function createSynopsis(outline){
   const synopsis = data.message
   
   
-  // const title = createTitle(synopsis)
+  const title = createTitle(synopsis)
   createStars(synopsis)
   outputText.innerText = synopsis
   // createImagePrompt(title,synopsis)
