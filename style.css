@@ -144,7 +144,7 @@ button:hover{
 }
 
 .output-container {
-    display: none;
+    /* display: none; */
     flex-direction: column;
     margin: 1em auto;
     color: #242526;
