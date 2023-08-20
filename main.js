@@ -26,24 +26,23 @@ button.addEventListener("click",function(){
 async function createBotReply(outline){  
   const bossMessage = document.getElementById("boss-message")
   bossMessage.innerText = "Ok, just wait a second while my digital brain digests that..."
-  // const completion = await openai.completions.create({
-  //   model : "text-davinci-002",
-  //   prompt : `Generate a short message to enthusiastically say an outline sounds interesting and that you need some minutes to think about it.
-  //   ###
-  //   outline: Two dogs fall in love and move to Hawaii to learn to surf.
-  //   message: I'll need to think about that. But your idea is amazing! I love the bit about Hawaii!
-  //   ###
-  //   outline:A plane crashes in the jungle and the passengers have to walk 1000km to safety.
-  //   message: I'll spend a few moments considering that. But I love your idea!! A disaster movie in the jungle!
-  //   ###
-  //   outline: A group of corrupt lawyers try to send an innocent woman to jail.
-  //   message: Wow that is awesome! Corrupt lawyers, huh? Give me a few moments to think!
-  //   ###
-  //   outline: ${outline}
-  //   message: 
-  //   `,
-  //   max_tokens : 128,
-  // })
+
+  prompt = `Generate a short message to enthusiastically say an outline sounds interesting and that you need some minutes to think about it.
+    ###
+    outline: Two dogs fall in love and move to Hawaii to learn to surf.
+    message: I'll need to think about that. But your idea is amazing! I love the bit about Hawaii!
+    ###
+    outline:A plane crashes in the jungle and the passengers have to walk 1000km to safety.
+    message: I'll spend a few moments considering that. But I love your idea!! A disaster movie in the jungle!
+    ###
+    outline: A group of corrupt lawyers try to send an innocent woman to jail.
+    message: Wow that is awesome! Corrupt lawyers, huh? Give me a few moments to think!
+    ###
+    outline: ${outline}
+    message: 
+    `
+  max_tokens = 128
+  
   // const reply = completion.choices[0].text
   // bossMessage.innerText = `${reply}`
   // createSynopsis(outline)
@@ -53,7 +52,9 @@ async function createBotReply(outline){
     headers: {
       "content-type":"text/plain"
     },
-    body : 1
+    body : 1,
+    userPrompt: prompt,
+    max_tokens:max_tokens
   })
 
   const data = await response.json()
