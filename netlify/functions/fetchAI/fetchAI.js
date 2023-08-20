@@ -12,8 +12,8 @@ const handler = async (event) => {
     if (event.body == "1"){
         const completion =await openai.completions.create({
           model:"text-davinci-002",
-          prompt:event.userPrompt,
-          max_tokens:event.max_tokens
+          prompt:event.body.userPrompt,
+          max_tokens:event.body.max_tokens
         })        
 
         response = completion.choices[0].text
