@@ -8,8 +8,8 @@ const openai = new OpenAI({
 
 const handler = async (event) => {
   try {
-    let response ="none"
-    if (event.body == "text"){
+    let response ="nooooone"
+    if (event.body == "1"){
         response = "chat"
     }
     
