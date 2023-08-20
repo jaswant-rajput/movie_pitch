@@ -8,13 +8,15 @@ const openai = new OpenAI({
 
 const handler = async (event) => {
   try {
-
-
+    let response ="none"
+    if (event.body === "text"){
+        response = "chat"
+    }
     
     return {
       statusCode: 200,
       body: JSON.stringify({ 
-        message: event.body
+        message: response
        }),
     }
   } catch (error) {
