@@ -41,7 +41,7 @@ async function createBotReply(outline){
     outline: ${outline}
     message: 
     `
-  const max_tokens = 128
+
   
   // const reply = completion.choices[0].text
   // bossMessage.innerText = `${reply}`
@@ -56,17 +56,14 @@ async function createBotReply(outline){
   })
 
   const data = await response.json()
-  console.log(data.message)
-
   bossMessage.innerText = data.message
+  createSynopsis(outline)
 }
 
 async function createSynopsis(outline){
   const outputText = document.getElementById("output-text")
 
-  const apiResponse = await openai.completions.create({
-    model: "text-davinci-003",
-    prompt: `Generate an engaging, professional and marketable movie synopsis based on an outline. The synopsis should include actors names in brackets after each character. Choose actors that would be ideal for this role. 
+  const prompt = `Generate an engaging, professional and marketable movie synopsis based on an outline. The synopsis should include actors names in brackets after each character. Choose actors that would be ideal for this role. 
     ###
     outline: A big-headed daredevil fighter pilot goes back to school only to be sent on a deadly mission.
     synopsis: The Top Gun Naval Fighter Weapons School is where the best of the best train to refine their elite flying skills. 
@@ -77,15 +74,21 @@ async function createSynopsis(outline){
     ###
     outline: ${outline}
     synopsis:
-    `,
-    max_tokens:700  
+    `
+
+  const response = await fetch(url,{
+    method:"POST",
+    headers: {
+      "content-type":"text/plain"
+    },
+    body: prompt,
   })
-  const synopsis = apiResponse.choices[0].text.trim()
+  const synopsis = response.message
   
-  const title = createTitle(synopsis)
-  createStars(synopsis)
+  // const title = createTitle(synopsis)
+  // createStars(synopsis)
   outputText.innerText = synopsis
-  createImagePrompt(title,synopsis)
+  // createImagePrompt(title,synopsis)
 }
 
 async function createTitle(synopsis){
