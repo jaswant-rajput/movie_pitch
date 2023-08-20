@@ -83,7 +83,10 @@ async function createSynopsis(outline){
     },
     body: prompt,
   })
-  const synopsis = response.message
+  
+  const data = await response.json()
+  const synopsis = data.message
+  
   
   // const title = createTitle(synopsis)
   // createStars(synopsis)
