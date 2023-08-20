@@ -140,7 +140,7 @@ async function createStars(synopsis){
     })
   console.log(response)
   const starNames = await response.json()
-  console.log(startNames)
+  console.log(starNames)
   outputStars.innerText = starNames.message
   
 }
