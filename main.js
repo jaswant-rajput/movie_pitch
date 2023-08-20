@@ -88,7 +88,7 @@ async function createSynopsis(outline){
   const synopsis = data.message
   
   
-  const title = createTitle(synopsis)
+  // const title = createTitle(synopsis)
   createStars(synopsis)
   outputText.innerText = synopsis
   // createImagePrompt(title,synopsis)
@@ -138,8 +138,9 @@ async function createStars(synopsis){
       },
       body: prompt,
     })
-
+  console.log(response)
   const starNames = await response.json()
+  console.log(startNames)
   outputStars.innerText = starNames.message
   
 }
