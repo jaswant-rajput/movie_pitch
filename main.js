@@ -52,7 +52,7 @@ async function createBotReply(outline){
     headers: {
       "content-type":"text/plain"
     },
-    body: userPrompt,
+    body: prompt,
   })
 
   const data = await response.json()
