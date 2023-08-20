@@ -53,7 +53,7 @@ async function createBotReply(outline){
     headers: {
       "content-type":"text/plain"
     },
-    body : "chat"
+    body : 1
   })
 
   const data = await response.json()
