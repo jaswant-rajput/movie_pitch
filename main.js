@@ -106,7 +106,7 @@ async function createTitle(synopsis){
     body: prompt,
   })
   const title = await response.json()
-  outputTitle.innerText = title
+  outputTitle.innerText = title.message
   return title
 }
 
@@ -140,7 +140,7 @@ async function createStars(synopsis){
     })
 
   const starNames = await response.json()
-  outputStars.innerText = starNames
+  outputStars.innerText = starNames.message
   
 }
 
