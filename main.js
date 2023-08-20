@@ -27,7 +27,7 @@ async function createBotReply(outline){
   const bossMessage = document.getElementById("boss-message")
   bossMessage.innerText = "Ok, just wait a second while my digital brain digests that..."
 
-  prompt = `Generate a short message to enthusiastically say an outline sounds interesting and that you need some minutes to think about it.
+  const prompt = `Generate a short message to enthusiastically say an outline sounds interesting and that you need some minutes to think about it.
     ###
     outline: Two dogs fall in love and move to Hawaii to learn to surf.
     message: I'll need to think about that. But your idea is amazing! I love the bit about Hawaii!
@@ -41,7 +41,7 @@ async function createBotReply(outline){
     outline: ${outline}
     message: 
     `
-  max_tokens = 128
+  const max_tokens = 128
   
   // const reply = completion.choices[0].text
   // bossMessage.innerText = `${reply}`
