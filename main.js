@@ -88,29 +88,33 @@ async function createSynopsis(outline){
   const synopsis = data.message
   
   
-  // const title = createTitle(synopsis)
-  // createStars(synopsis)
+  const title = createTitle(synopsis)
+  createStars(synopsis)
   outputText.innerText = synopsis
   // createImagePrompt(title,synopsis)
 }
 
 async function createTitle(synopsis){
   const outputTitle = document.getElementById("output-title")
-  const apiResponse = await openai.completions.create({
-    model:"text-davinci-002",
-    prompt:`Generate an alluring title based on the synopsis ${synopsis} `,
-    max_tokens : 20
+  const prompt = `Generate an alluring title based on the synopsis ${synopsis} `
+
+  const response = await fetch(url,{
+    method:"POST",
+    headers: {
+      "content-type":"text/plain"
+    },
+    body: prompt,
   })
-  const title = apiResponse.choices[0].text.trim()
+  const title = await response.json()
   outputTitle.innerText = title
   return title
 }
 
 async function createStars(synopsis){
   const outputStars = document.getElementById("output-stars")
-  const apiResponse = await openai.completions.create({
-    model:"text-davinci-003",
-    prompt: `Extract the names in brackets from the synopsis.
+  
+    
+    prompt = `Extract the names in brackets from the synopsis.
     ###
     synopsis: The Top Gun Naval Fighter Weapons School is where the best of the best train to refine their elite flying skills.
     When hotshot fighter pilot Maverick (Tom Cruise) is sent to the school, 
@@ -125,11 +129,17 @@ async function createStars(synopsis){
     ###
     synopsis: ${synopsis}
     names:   
-    `,
-    max_tokens:30
-  })
+    `
+  
+    const response = await fetch(url,{
+      method:"POST",
+      headers: {
+        "content-type":"text/plain"
+      },
+      body: prompt,
+    })
 
-  const starNames = apiResponse.choices[0].text
+  const starNames = await response.json()
   outputStars.innerText = starNames
   
 }
