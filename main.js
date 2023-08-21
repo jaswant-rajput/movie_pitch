@@ -49,6 +49,7 @@ async function createBotReply(outline){
       "content-type":"application/json"
     },
     body: JSON.stringify({
+      prompt : outline,
       mode:1
     })
   })
@@ -77,9 +78,12 @@ async function createSynopsis(outline){
   const response = await fetch(url,{
     method:"POST",
     headers: {
-      "content-type":"text/plain"
+      "content-type":"application/json"
     },
-    body: prompt,
+    body: JSON.stringify({
+      prompt : outline,
+      mode:1
+    })
   })
   
   const data = await response.json()
@@ -99,9 +103,12 @@ async function createTitle(synopsis){
   const response = await fetch(url,{
     method:"POST",
     headers: {
-      "content-type":"text/plain"
+      "content-type":"application/json"
     },
-    body: prompt,
+    body: JSON.stringify({
+      prompt : synopsis,
+      mode:1
+    })
   })
   const title = await response.json()
   outputTitle.innerText = title.message
