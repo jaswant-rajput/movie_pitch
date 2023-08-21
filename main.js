@@ -87,7 +87,7 @@ async function createSynopsis(outline){
   
   
   const title = createTitle(synopsis)
-  createStars(synopsis)
+  const stars = createStars(synopsis)
   outputText.innerText = synopsis
   // createImagePrompt(title,synopsis)
 }
@@ -105,12 +105,12 @@ async function createTitle(synopsis){
   })
   const title = await response.json()
   outputTitle.innerText = title.message
-  return title
+  return title.message
 }
 
 async function createStars(synopsis){
   const outputStars = document.getElementById("output-stars")
-  
+
   
     
     const prompt = `Extract the names in brackets from the synopsis.
@@ -141,7 +141,7 @@ async function createStars(synopsis){
   const starNames = await response.json()
   
   outputStars.innerText = starNames.message
-  
+  return starNames.message
 }
 
 
