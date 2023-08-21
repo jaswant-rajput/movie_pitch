@@ -15,7 +15,7 @@ const handler = async (event) => {
           prompt:event.body,
           max_tokens:700,
         })        
-        const response = completion.choices[0].text
+        const response = completion.choices[0].text.trim()
     
     
     return {
