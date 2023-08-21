@@ -1,13 +1,28 @@
-// Docs on event and context https://docs.netlify.com/functions/build/#code-your-function-2
+const { default: OpenAI } = require("openai")
+
+
+const openai = new OpenAI({
+  apiKey : process.env.OPENAI_API_KEY,
+})
+
+
 const handler = async (event) => {
   try {
-    const subject = event.queryStringParameters.name || 'World'
+    
+    
+    const response =await openai.images.generate({
+      prompt:event.body,
+      n:1,
+      size : "256x256"
+    })
+    const imageUrl = response.data[0].url
+     
+    
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: `Hello ${subject}` }),
-      // // more keys you can return:
-      // headers: { "headerName": "headerValue", ... },
-      // isBase64Encoded: true,
+      body: JSON.stringify({ 
+        message: imageUrl,   
+       }),
     }
   } catch (error) {
     return { statusCode: 500, body: error.toString() }

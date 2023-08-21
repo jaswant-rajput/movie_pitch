@@ -170,8 +170,8 @@ async function createImagePrompt(title,synopsis){
     })
 
   const imagePrompt = await response.json()
-  console.log(imagePrompt.message)
-  
+  // console.log(imagePrompt.message)
+  createImage(imagePrompt.message)
 
 }
 
@@ -179,13 +179,17 @@ async function createImage(imagePrompt){
 
 const imageContainer = document.getElementById("output-img-container")
 
-  const response =await openai.images.generate({
-    prompt:imagePrompt,
-    n:1,
-    size : "256x256"
-  })
-  const imageUrl = response.data[0].url
-  imageContainer.innerHTML = `<img src="${imageUrl}">`
+const response = await fetch(urlImage,{
+  method:"POST",
+  headers: {
+    "content-type":"text/plain"
+  },
+  body: prompt,
+})
+
+const imageUrl = await response.json()
+
+  imageContainer.innerHTML = `<img src="${imageUrl.message}">`
 
   const setupInputContainer = document.getElementById("setup-input-container")
   setupInputContainer.innerHTML = `<button class="view-pitch-btn" id="view-pitch-btn"> View pitch </button>`
