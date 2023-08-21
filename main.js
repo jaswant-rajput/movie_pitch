@@ -146,9 +146,8 @@ async function createStars(synopsis){
 
 
 async function createImagePrompt(title,synopsis){
-  const response = await openai.completions.create({
-    model:"text-davinci-003",
-    prompt: `Give a short description of an image which could be used to advertise a movie based on a title and synopsis. The description should be rich in visual detail but contain no names.
+
+  const prompt = `Give a short description of an image which could be used to advertise a movie based on a title and synopsis. The description should be rich in visual detail but contain no names.
     ###
     title: Love's Time Warp
     synopsis: When scientist and time traveller Wendy (Emma Watson) is sent back to the 1920s to assassinate a future dictator, she never expected to fall in love with them. As Wendy infiltrates the dictator's inner circle, she soon finds herself torn between her mission and her growing feelings for the leader (Brie Larson). With the help of a mysterious stranger from the future (Josh Brolin), Wendy must decide whether to carry out her mission or follow her heart. But the choices she makes in the 1920s will have far-reaching consequences that reverberate through the ages.
@@ -161,13 +160,18 @@ async function createImagePrompt(title,synopsis){
     title: ${title}
     synopsis: ${synopsis}
     image description: 
-    `,
-    temperature :0.8,
-    max_tokens:100
-  })
+    `
+    const response = await fetch(url1,{
+      method:"POST",
+      headers: {
+        "content-type":"text/plain"
+      },
+      body: prompt,
+    })
 
-  const imagePrompt = response.choices[0].text.trim()
-  createImage(imagePrompt)
+  const imagePrompt = await response.json()
+  console.log(imagePrompt.message)
+  
 
 }
 
