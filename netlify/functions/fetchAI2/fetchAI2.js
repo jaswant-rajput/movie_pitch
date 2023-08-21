@@ -1,13 +1,28 @@
-// Docs on event and context https://docs.netlify.com/functions/build/#code-your-function-2
+const { default: OpenAI } = require("openai")
+
+
+const openai = new OpenAI({
+  apiKey : process.env.OPENAI_API_KEY,
+})
+
+
 const handler = async (event) => {
   try {
-    const subject = event.queryStringParameters.name || 'World'
+    
+    
+      const completion =await openai.completions.create({
+          model:"text-davinci-002",
+          prompt:event.body,
+          max_tokens:700,
+        })        
+        const response = completion.choices[0].text
+    
+    
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: `Hello ${subject}` }),
-      // // more keys you can return:
-      // headers: { "headerName": "headerValue", ... },
-      // isBase64Encoded: true,
+      body: JSON.stringify({ 
+        message: response,   
+       }),
     }
   } catch (error) {
     return { statusCode: 500, body: error.toString() }

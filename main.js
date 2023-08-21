@@ -12,8 +12,8 @@
 
 
 const button = document.getElementById("send-btn")
-const url = "https://warm-snickerdoodle-ee4999.netlify.app/.netlify/functions/fetchAI"
-
+const url1 = "https://warm-snickerdoodle-ee4999.netlify.app/.netlify/functions/fetchAI"
+const url2 = "https://warm-snickerdoodle-ee4999.netlify.app/.netlify/functions/fetchAI2"
 
 button.addEventListener("click",function(){
   const userInput = document.getElementById("setup-textarea").value
@@ -43,7 +43,7 @@ async function createBotReply(outline){
     `
 
 
-  const response = await fetch(url,{
+  const response = await fetch(url2,{
     method:"POST",
     headers: {
       "content-type":"text/plain"
@@ -74,7 +74,7 @@ async function createSynopsis(outline){
     synopsis:
     `
 
-  const response = await fetch(url,{
+  const response = await fetch(url1,{
     method:"POST",
     headers: {
       "content-type":"text/plain"
@@ -96,7 +96,7 @@ async function createTitle(synopsis){
   const outputTitle = document.getElementById("output-title")
   const prompt = `Generate an alluring title based on the synopsis ${synopsis} `
 
-  const response = await fetch(url,{
+  const response = await fetch(url1,{
     method:"POST",
     headers: {
       "content-type":"text/plain"
@@ -130,7 +130,7 @@ async function createStars(synopsis){
     names:   
     `
   
-    const response = await fetch(url,{
+    const response = await fetch(url2,{
       method:"POST",
       headers: {
         "content-type":"text/plain"
