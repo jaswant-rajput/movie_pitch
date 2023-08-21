@@ -8,11 +8,11 @@ const openai = new OpenAI({
 
 const handler = async (event) => {
   try {
-    const data = JSON.parse(event.body) 
+    
     if (data.mode == 1){
       const completion =await openai.completions.create({
           model:"text-davinci-003",
-          prompt:data.prompt,
+          prompt:event.body,
           max_tokens:700,
         })        
         const response = completion.choices[0].text

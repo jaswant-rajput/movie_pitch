@@ -48,15 +48,13 @@ async function createBotReply(outline){
     headers: {
       "content-type":"text/plain"
     },
-    body: JSON.stringify({
-      prompt : prompt,
-      mode:1
-    })
+    body: prompt,
+
   })
 
   const data = await response.json()
   bossMessage.innerText = data.message
-  // console.log(response)
+  
   // createSynopsis(outline)
 }
 
