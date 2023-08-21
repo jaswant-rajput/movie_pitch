@@ -42,22 +42,20 @@ async function createBotReply(outline){
     message: 
     `
 
-  
-  // const reply = completion.choices[0].text
-  // bossMessage.innerText = `${reply}`
-  // createSynopsis(outline)
 
   const response = await fetch(url,{
     method:"POST",
     headers: {
-      "content-type":"text/plain"
+      "content-type":"application/json"
     },
-    body: prompt,
+    body: JSON.stringify({
+      mode:1
+    })
   })
 
   const data = await response.json()
   bossMessage.innerText = data.message
-  createSynopsis(outline)
+  // createSynopsis(outline)
 }
 
 async function createSynopsis(outline){
