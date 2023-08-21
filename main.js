@@ -175,7 +175,7 @@ async function createImagePrompt(synopsis){
 async function createImage(imagePrompt){
 
 const imageContainer = document.getElementById("output-img-container")
-
+console.log(imagePrompt)
 const response = await fetch(urlImage,{
   method:"POST",
   headers: {
