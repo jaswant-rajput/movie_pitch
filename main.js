@@ -111,6 +111,7 @@ async function createTitle(synopsis){
 async function createStars(synopsis){
   const outputStars = document.getElementById("output-stars")
   
+  
     
     const prompt = `Extract the names in brackets from the synopsis.
     ###
