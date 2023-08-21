@@ -14,7 +14,7 @@
 const button = document.getElementById("send-btn")
 const url1 = "https://warm-snickerdoodle-ee4999.netlify.app/.netlify/functions/fetchAI"
 const url2 = "https://warm-snickerdoodle-ee4999.netlify.app/.netlify/functions/fetchAI2"
-
+const urlImage = "https://warm-snickerdoodle-ee4999.netlify.app/.netlify/functions/fetchImage"
 button.addEventListener("click",function(){
   const userInput = document.getElementById("setup-textarea").value
   if (userInput){
