@@ -147,7 +147,7 @@ async function createStars(synopsis){
 
 async function createImagePrompt(synopsis){
 
-  const prompt = `Give a short description of an image which could be used to advertise a movie based on the synopsis. The description should be rich in visual detail but contain no names.
+  const prompt = `Give a short description of an image which could be used to advertise a movie based on the synopsis. The description should be rich in visual detail but contain no names. Mention it specifically that image should not contain any text in it .
     ###
     synopsis: When scientist and time traveller Wendy (Emma Watson) is sent back to the 1920s to assassinate a future dictator, she never expected to fall in love with them. As Wendy infiltrates the dictator's inner circle, she soon finds herself torn between her mission and her growing feelings for the leader (Brie Larson). With the help of a mysterious stranger from the future (Josh Brolin), Wendy must decide whether to carry out her mission or follow her heart. But the choices she makes in the 1920s will have far-reaching consequences that reverberate through the ages.
     image description: A silhouetted figure stands in the shadows of a 1920s speakeasy, her face turned away from the camera. In the background, two people are dancing in the dim light, one wearing a flapper-style dress and the other wearing a dapper suit. A semi-transparent image of war is super-imposed over the scene.
