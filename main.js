@@ -112,7 +112,7 @@ async function createStars(synopsis){
   const outputStars = document.getElementById("output-stars")
   
     
-    prompt = `Extract the names in brackets from the synopsis.
+    const prompt = `Extract the names in brackets from the synopsis.
     ###
     synopsis: The Top Gun Naval Fighter Weapons School is where the best of the best train to refine their elite flying skills.
     When hotshot fighter pilot Maverick (Tom Cruise) is sent to the school, 
