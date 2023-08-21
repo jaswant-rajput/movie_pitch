@@ -9,14 +9,14 @@ const openai = new OpenAI({
 const handler = async (event) => {
   try {
     
-    if (data.mode == 1){
+    
       const completion =await openai.completions.create({
           model:"text-davinci-003",
           prompt:event.body,
           max_tokens:700,
         })        
         const response = completion.choices[0].text
-    }
+    
     
     return {
       statusCode: 200,
