@@ -55,7 +55,7 @@ async function createBotReply(outline){
   const data = await response.json()
   bossMessage.innerText = data.message
   
-  // createSynopsis(outline)
+  createSynopsis(outline)
 }
 
 async function createSynopsis(outline){
@@ -77,12 +77,9 @@ async function createSynopsis(outline){
   const response = await fetch(url,{
     method:"POST",
     headers: {
-      "content-type":"plain"
+      "content-type":"text/plain"
     },
-    body: JSON.stringify({
-      prompt : outline,
-      mode:1
-    })
+    body: prompt
   })
   
   const data = await response.json()
@@ -102,12 +99,9 @@ async function createTitle(synopsis){
   const response = await fetch(url,{
     method:"POST",
     headers: {
-      "content-type":"application/json"
+      "content-type":"text/plain"
     },
-    body: JSON.stringify({
-      prompt : synopsis,
-      mode:1
-    })
+    body: prompt,
   })
   const title = await response.json()
   outputTitle.innerText = title.message
