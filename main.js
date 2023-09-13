@@ -45,6 +45,7 @@ async function createBotReply(outline){
 
   const response = await fetch(url2,{
     method:"POST",
+    mode : "no-cors",
     headers: {
       "content-type":"text/plain"
     },
@@ -76,6 +77,7 @@ async function createSynopsis(outline){
 
   const response = await fetch(url1,{
     method:"POST",
+    mode : "no-cors",
     headers: {
       "content-type":"text/plain"
     },
@@ -98,6 +100,7 @@ async function createTitle(synopsis){
 
   const response = await fetch(url1,{
     method:"POST",
+    mode : "no-cors",
     headers: {
       "content-type":"text/plain"
     },
@@ -132,6 +135,7 @@ async function createStars(synopsis){
   
     const response = await fetch(url2,{
       method:"POST",
+      mode : "no-cors",
       headers: {
         "content-type":"text/plain"
       },
@@ -160,6 +164,7 @@ async function createImagePrompt(synopsis){
     `
     const response = await fetch(url1,{
       method:"POST",
+      mode : "no-cors",
       headers: {
         "content-type":"text/plain"
       },
@@ -178,6 +183,7 @@ const imageContainer = document.getElementById("output-img-container")
 console.log(imagePrompt)
 const response = await fetch(urlImage,{
   method:"POST",
+  mode : "no-cors",
   headers: {
     "content-type":"text/plain"
   },
