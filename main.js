@@ -43,7 +43,7 @@ async function createBotReply(outline){
     `
 
 
-  const response = await fetch(url2,{
+  const response = await fetch(url1,{
     method:"POST",
     mode : "no-cors",
     headers: {
@@ -56,7 +56,7 @@ async function createBotReply(outline){
   const data = await response.json()
   bossMessage.innerText = data.message
   
-  createSynopsis(outline)
+  // createSynopsis(outline)
 }
 
 async function createSynopsis(outline){
