@@ -2,26 +2,48 @@
 
 
 
-// import { OpenAI } from "openai"
+import { OpenAI } from "openai"
 
 
-// const openai = new OpenAI({
-//   apiKey : process.env.apiKey,
-//   dangerouslyAllowBrowser: true
-// })
+const openai = new OpenAI({
+  apiKey : "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",
+  dangerouslyAllowBrowser: true
+})
 
 
 const button = document.getElementById("send-btn")
-const url1 = "https://warm-snickerdoodle-ee4999.netlify.app/.netlify/functions/fetchAI"
-const url2 = "https://warm-snickerdoodle-ee4999.netlify.app/.netlify/functions/fetchAI2"
-const urlImage = "https://warm-snickerdoodle-ee4999.netlify.app/.netlify/functions/fetchImage"
+const setupInputContainer = document.getElementById("setup-input-container")
 button.addEventListener("click",function(){
   const userInput = document.getElementById("setup-textarea").value
   if (userInput){
+    setupInputContainer.innerHTML = `<img src="images/loading.svg">`
   createBotReply(userInput)
+  
   }
 
 })
+
+
+
+async function fetchCompletion(model,prompt,max_tokens){
+  const completion = await openai.completions.create({
+    model:model,
+    prompt: prompt,
+    max_tokens : max_tokens
+  })
+  return completion
+}
+
+async function fetchImage(prompt){
+  const response = await openai.images.generate({
+    prompt : prompt,
+    n:1,
+    size: "256x256"
+  })
+  return response
+}
+
+
 
 async function createBotReply(outline){  
   const bossMessage = document.getElementById("boss-message")
@@ -41,21 +63,9 @@ async function createBotReply(outline){
     outline: ${outline}
     message: 
     `
-
-
-  const response = await fetch(url1,{
-    method:"POST",
-    mode : "no-cors",
-    headers: {
-      "content-type":"text/plain"
-    },
-    body: prompt,
-
-  })
-
-  const data = await response.json()
-  // console.log(data)
-  bossMessage.innerText = data.message
+  const response = fetchCompletion("text-davinci-002",prompt,50)
+  const data = (await response).choices[0].text
+  bossMessage.innerText = data
   
   createSynopsis(outline)
 }
@@ -76,17 +86,8 @@ async function createSynopsis(outline){
     synopsis:
     `
 
-  const response = await fetch(url1,{
-    method:"POST",
-    mode : "no-cors",
-    headers: {
-      "content-type":"text/plain"
-    },
-    body: prompt
-  })
-  
-  const data = await response.json()
-  const synopsis = data.message
+  const response = fetchCompletion("text-davinci-003",prompt,500)
+  const synopsis = (await response).choices[0].text
   
   
   const title = createTitle(synopsis)
@@ -99,17 +100,11 @@ async function createTitle(synopsis){
   const outputTitle = document.getElementById("output-title")
   const prompt = `Generate an alluring title based on the synopsis ${synopsis} `
 
-  const response = await fetch(url1,{
-    method:"POST",
-    mode : "no-cors",
-    headers: {
-      "content-type":"text/plain"
-    },
-    body: prompt,
-  })
-  const title = await response.json()
-  outputTitle.innerText = title.message
-  return title.message
+  const response = fetchCompletion("text-davinci-003",prompt,60)
+  const title = (await response).choices[0].text
+  
+  outputTitle.innerText = title
+  return title
 }
 
 async function createStars(synopsis){
@@ -134,19 +129,14 @@ async function createStars(synopsis){
     names:   
     `
   
-    const response = await fetch(url2,{
-      method:"POST",
-      mode : "no-cors",
-      headers: {
-        "content-type":"text/plain"
-      },
-      body: prompt,
-    })
+  const response = fetchCompletion("text-davinci-002",prompt,100)
+  const starNames = (await response).choices[0].text
+
+
+  // const starNames = await response.json()
   
-  const starNames = await response.json()
-  
-  outputStars.innerText = starNames.message
-  return starNames.message
+  outputStars.innerText = starNames
+  return starNames
 }
 
 
@@ -163,37 +153,21 @@ async function createImagePrompt(synopsis){
     synopsis: ${synopsis}
     image description: 
     `
-    const response = await fetch(url1,{
-      method:"POST",
-      mode : "no-cors",
-      headers: {
-        "content-type":"text/plain"
-      },
-      body: prompt,
-    })
+  const response = fetchCompletion("text-davinci-003",prompt,500)
+  const imagePrompt = (await response).choices[0].text
 
-  const imagePrompt = await response.json()
-  // console.log(imagePrompt.message)
-  createImage(imagePrompt.message)
+  createImage(imagePrompt)
 
 }
 
 async function createImage(imagePrompt){
 
 const imageContainer = document.getElementById("output-img-container")
-console.log(imagePrompt)
-const response = await fetch(urlImage,{
-  method:"POST",
-  mode : "no-cors",
-  headers: {
-    "content-type":"text/plain"
-  },
-  body: prompt,
-})
+const response = fetchImage(imagePrompt)
+const url = (await response).data[0].url
+// const imageUrl = await response.json()
 
-const imageUrl = await response.json()
-
-  imageContainer.innerHTML = `<img src="${imageUrl.message}">`
+  imageContainer.innerHTML = `<img src="${url}">`
 
   const setupInputContainer = document.getElementById("setup-input-container")
   setupInputContainer.innerHTML = `<button class="view-pitch-btn" id="view-pitch-btn"> View pitch </button>`
