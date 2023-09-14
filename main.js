@@ -54,9 +54,10 @@ async function createBotReply(outline){
   })
 
   const data = await response.json()
+  // console.log(data)
   bossMessage.innerText = data.message
   
-  // createSynopsis(outline)
+  createSynopsis(outline)
 }
 
 async function createSynopsis(outline){
