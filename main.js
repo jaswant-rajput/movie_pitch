@@ -3,10 +3,11 @@
 
 
 import { OpenAI } from "openai"
+import { process } from "./env"
 
 
 const openai = new OpenAI({
-  apiKey : "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",
+  apiKey : process.env.OPENAI_API_KEY,
   dangerouslyAllowBrowser: true
 })
 
